@@ -17,11 +17,11 @@ class BiometricController extends GetxController {
     super.onInit();
     // Check biometric availability when controller initializes
     checkBiometrics();
-    ever(isAuthenticated, (bool isAuthed) {
-      if (isAuthed) {
-        Get.off(HomeScreen());
-      }
-    });
+    // ever(isAuthenticated, (bool isAuthed) {
+    //   if (isAuthed) {
+    //     Get.off(HomeScreen());
+    //   }
+    // });
   }
 
   Future<void> checkBiometrics() async {
@@ -32,8 +32,8 @@ class BiometricController extends GetxController {
           .isBiometricsAvailable();
       if (!isBiometricAvailable.value) {
         errorMessage.value = 'Biometrics not available';
-        await Future.delayed(const Duration(seconds: 2));
-        Get.off(() => HomeScreen());
+        // await Future.delayed(const Duration(seconds: 2));
+        // Get.off(HomeScreen());
         return;
       }
 

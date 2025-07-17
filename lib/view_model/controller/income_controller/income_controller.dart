@@ -60,24 +60,38 @@ class AddIncomeController extends GetxController {
       date: date,
       iconCodePoint: icon,
     );
-    expenseBox.add(expenseModel);
-    loadExpenses();
+    final key = expenseBox.add(expenseModel); // Add to Hive
+    // Insert at the beginning of the expenses list
+    expenses.insert(0, expenseModel);
+    calculateExpenses();
+    calculateBalance();
   }
 
   void deleteExpense(int index) {
-    expenseBox.deleteAt(index);
-    loadExpenses();
+    if (index >= 0 && index < expenses.length) {
+      expenseBox.deleteAt(index); // Delete from Hive using the same index
+      expenses.removeAt(index);   // Remove from the list
+      calculateExpenses();
+      calculateBalance();
+    }
   }
 
   void editExpense(int index, String newExpense, String newCategory) {
-    final oldExpense =expenseBox.getAt(index);
-    final updatedExpense = ExpenseModel(
-        new_expense: newExpense,
-        category: newCategory,
-        date: oldExpense!.date,
-        iconCodePoint: oldExpense.iconCodePoint);
-    expenseBox.putAt(index, updatedExpense);
-    loadExpenses();
+    if (index >= 0 && index < expenses.length) {
+      final oldExpense = expenseBox.getAt(index);
+      if (oldExpense != null) {
+        final updatedExpense = ExpenseModel(
+          new_expense: newExpense,
+          category: newCategory,
+          date: oldExpense.date,
+          iconCodePoint: oldExpense.iconCodePoint,
+        );
+        expenseBox.putAt(index, updatedExpense); // Update in Hive
+        expenses[index] = updatedExpense;        // Update in the list
+        calculateExpenses();
+        calculateBalance();
+      }
+    }
   }
 
   void calculateExpenses() {

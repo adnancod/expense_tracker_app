@@ -1,3 +1,4 @@
+import 'package:expense_tracker_app/consts/toast_message.dart';
 import 'package:expense_tracker_app/view_model/services/biometric_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,9 +27,9 @@ class AddFingerprint extends StatelessWidget {
 
             if (isVerified) {
               switchController.toggleSwitch(value);
-              Get.snackbar('Success', 'Verified Successfully');
+              ToastMessage.success('Finger Print Verified');
             } else {
-              Get.snackbar('Error', 'Finger Print Verification Failed');
+              ToastMessage.error('Biometrics Not available\nFinger Print Verification Failed');
             }
           });
     });
