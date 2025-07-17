@@ -34,7 +34,6 @@ class ViewExpenses extends StatelessWidget {
             itemBuilder: (context, index) {
               final expense = controller.expenses[index];
               return Slidable(
-                  key: const ValueKey(0),
                   startActionPane: ActionPane(
                   motion: const ScrollMotion(),
                     children: [
